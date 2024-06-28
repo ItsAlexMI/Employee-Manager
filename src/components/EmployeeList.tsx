@@ -28,6 +28,26 @@ const EmployeeList = () => {
     }
   };
 
+  const deleteEmployee = async (id: number) => {
+    try {
+      console.log('Employee ID:', id); // Verifica si el ID se pasa correctamente a la función
+  
+      const response = await fetch(`http://localhost:5000/api/employees/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        console.log('Empleado eliminado exitosamente');
+        fetchEmployees();
+      } else {
+        throw new Error("Error deleting employee");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  
+  
   return (
     <div>
       <form className="mt-52 border p-4 rounded shadow-lg border-gray-300 w-2/3 mx-auto flex items-center ">
@@ -44,19 +64,32 @@ const EmployeeList = () => {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee) => (
-              <tr key={employee.id} className="border-b border-slate-500">
-                <td className="p-2 border-r border-dashed border-slate-500 text-slate-500 font-semibold">
-                  {employee.name}
-                </td>
-                <td className="p-2 border-r border-dashed border-slate-500 text-slate-500 font-semibold">
-                  {employee.email}
-                </td>
-                <td className="p-2 border-r border-dashed border-slate-500 text-slate-500 font-semibold">
-                  {employee.position}
-                </td>
-              </tr>
-            ))}
+          {employees.map((employee) => (
+  <tr key={employee.id} className="border-b border-slate-500">
+    <td className="p-2 border-r border-dashed border-slate-500 text-slate-500 font-semibold">
+      {employee.name}
+    </td>
+    <td className="p-2 border-r border-dashed border-slate-500 text-slate-500 font-semibold">
+      {employee.email}
+    </td>
+    <td className="p-2 border-r border-dashed border-slate-500 text-slate-500 font-semibold">
+      {employee.position}
+    </td>
+    <td className="p-2 border-r border-dashed border-slate-500 text-slate-500 font-semibold">
+    <button
+  type="button"
+  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+  onClick={() => {
+    console.log('Employee ID:', employee.id);
+    deleteEmployee(employee.id);
+  }}
+>
+  Delete
+</button>
+    </td>
+  </tr>
+))}
+
           </tbody>
         </table>
       </div>

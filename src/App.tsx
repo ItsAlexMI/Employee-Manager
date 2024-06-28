@@ -7,11 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 
 function App() {
-  const [showSidebar, setShowSidebar] = useState(false);
 
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
   return (
     <Router>
       <div className="flex">
